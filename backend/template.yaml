@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: EventFlow Backend API
+
+Resources:
+  EventFlowFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: eventflow-backend
+      Handler: main.handler
+      Runtime: python3.11
+      CodeUri: .
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Events:
+        ApiGateway:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
